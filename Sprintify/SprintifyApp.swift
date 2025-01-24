@@ -10,23 +10,11 @@ import SwiftData
 
 @main
 struct SprintifyApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
-
     var body: some Scene {
+        let viewModel = GoalViewModel()
+        
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(viewModel)
         }
-        .modelContainer(sharedModelContainer)
     }
 }
